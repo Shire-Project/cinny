@@ -27,19 +27,76 @@ function SecretStorageAccess({ onComplete }) {
 
   const toggleWithPhrase = () => setWithPhrase(!withPhrase);
 
+  const DEFAULT_BITSIZE = 256;
+
+  const manualKeyDerive = async (
+    password,
+    salt,
+    iterations,
+    numBits = DEFAULT_BITSIZE
+  ) => {
+    const subtleCrypto = global.window?.crypto?.subtle;
+    const encoder = new global.window.TextEncoder();
+
+    console.log("pass 1");
+    console.log(encoder.encode(password));
+    console.log(iterations);
+    const newKey = await subtleCrypto.importKey(
+      "raw",
+      encoder.encode(password),
+      { name: "PBKDF2" },
+      false,
+      ["deriveBits"]
+    );
+
+    console.log("pass 2");
+    console.log(newKey);
+
+    const keybits = await subtleCrypto.deriveBits(
+      {
+        name: "PBKDF2",
+        salt: new TextEncoder().encode(salt),
+        iterations: iterations,
+        hash: "SHA-512",
+      },
+      newKey,
+      numBits
+    );
+    console.log("pass 3");
+    console.log("#########");
+    console.log(keybits);
+    console.log("####### end before uint8");
+    let v ;
+    try{
+v = new Uint8Array(keybits);
+console.log("try and catch block");
+console.log(v);
+console.log(new TextDecoder().decode(v));
+    }
+    catch(e){
+      console.log(e);
+    }
+    console.log("end of function");
+
+    return new Uint8Array(keybits);
+  };
+
   const processInput = async ({ key, phrase }) => {
+    console.log("test ################");
     mountStore.setItem(true);
     setProcess(true);
     try {
       const { salt, iterations } = sSKeyInfo.passphrase || {};
-      const privateKey = key
-        ? mx.keyBackupKeyFromRecoveryKey(key)
-        : await deriveKey(phrase, salt, iterations);
+      const privateKey = await manualKeyDerive(phrase, salt, iterations);
+
+      console.log("#");
+      console.log("#########");
+      console.log(privateKey);
       const isCorrect = await mx.checkSecretStorageKey(privateKey, sSKeyInfo);
 
       if (!mountStore.getItem()) return;
       if (!isCorrect) {
-        setError(`Incorrect Security ${key ? 'Key' : 'Phrase'}`);
+        setError(`Incorrect Security ${key ? "Key" : "Phrase"}`);
         setProcess(false);
         return;
       }
@@ -51,7 +108,7 @@ function SecretStorageAccess({ onComplete }) {
       });
     } catch (e) {
       if (!mountStore.getItem()) return;
-      setError(`Incorrect Security ${key ? 'Key' : 'Phrase'}`);
+      setError(`Incorrect Security ${key ? "Key" : "Phrase"}`);
       setProcess(false);
     }
   };

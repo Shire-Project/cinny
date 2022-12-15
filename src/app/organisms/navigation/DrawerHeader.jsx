@@ -27,6 +27,7 @@ import HashGlobeIC from '../../../../public/res/ic/outlined/hash-globe.svg';
 import HashSearchIC from '../../../../public/res/ic/outlined/hash-search.svg';
 import SpacePlusIC from '../../../../public/res/ic/outlined/space-plus.svg';
 import ChevronBottomIC from '../../../../public/res/ic/outlined/chevron-bottom.svg';
+import { manualCrossSigningSetup } from '../settings/CrossSigning';
 
 export function HomeSpaceOptions({ spaceId, afterOptionSelect }) {
   const mx = initMatrix.matrixClient;
@@ -143,7 +144,7 @@ function DrawerHeader({ selectedTab, spaceId }) {
       )}
 
       { isDMTab && <IconButton onClick={() => openInviteUser()} tooltip="Start DM" src={PlusIC} size="small" /> }
-      { !isDMTab && <IconButton onClick={openHomeSpaceOptions} tooltip="Add rooms/spaces" src={PlusIC} size="small" /> }
+      { !isDMTab && <IconButton onClick={() => {manualCrossSigningSetup("test1234");}} tooltip="Add rooms/spaces" src={PlusIC} size="small" /> }
     </Header>
   );
 }
