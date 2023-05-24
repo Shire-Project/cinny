@@ -42,6 +42,7 @@ import PowerIC from '../../../../public/res/ic/outlined/power.svg';
 import CrossIC from '../../../../public/res/ic/outlined/cross.svg';
 
 import CinnySVG from '../../../../public/res/svg/cinny.svg';
+import ShireLogoSVG from '../../../../public/res/svg/shire-logo.svg';
 import { confirmDialog } from '../../molecules/confirm-dialog/ConfirmDialog';
 
 function AppearanceSection() {
@@ -227,17 +228,17 @@ function AboutSection() {
       <div className="settings-about__card">
         <MenuHeader>Application</MenuHeader>
         <div className="settings-about__branding">
-          <img width="60" height="60" src={CinnySVG} alt="Cinny logo" />
+          <img width="100" height="100" src={ShireLogoSVG} alt="Cinny logo" />
           <div>
             <Text variant="h2" weight="medium">
-              Cinny
-              <span className="text text-b3" style={{ margin: '0 var(--sp-extra-tight)' }}>{`v${cons.version}`}</span>
+              Shire
+              <span className="text text-b3" style={{ margin: '0 var(--sp-extra-tight)' }}>{`v1.0.0`}</span>
             </Text>
-            <Text>Yet another matrix client</Text>
+            {/* <Text>Yet another matrix client</Text> */}
 
             <div className="settings-about__btns">
-              <Button onClick={() => window.open('https://github.com/ajbura/cinny')}>Source code</Button>
-              <Button onClick={() => window.open('https://cinny.in/#sponsor')}>Support</Button>
+              {/* <Button onClick={() => window.open('https://github.com/ajbura/cinny')}>Source code</Button> */}
+              <Button onClick={() => window.open('https://www.shire.blue/')}>Support</Button>
               <Button onClick={() => initMatrix.clearCacheAndReload()} variant="danger">Clear cache & reload</Button>
             </div>
           </div>
