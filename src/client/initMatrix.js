@@ -111,14 +111,12 @@ class InitMatrix extends EventEmitter {
     this.matrixClient.stopClient();
     try {
       await this.matrixClient.logout();
-      const logoutChannel = new BroadcastChannel('LogoutChannel');
-      logoutChannel.postMessage({type: "logout_event"});
     } catch {
       // ignore if failed to logout
     }
     await this.matrixClient.clearStores();
-    window.localStorage.clear();
-    window.location.reload();
+    const logoutChannel = new BroadcastChannel('LogoutChannel');
+    logoutChannel.postMessage({type: "logout_event"});
   }
 
   clearCacheAndReload() {
