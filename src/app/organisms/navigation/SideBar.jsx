@@ -345,14 +345,18 @@ function SideBar() {
 
   return (
     <div className="sidebar">
-      <div className="sidebar__scrollable">
-        <ScrollView invisible>
-          <div className="scrollable-content">
-            <div className="featured-container">
+      <div className="sidebar__scrollable" style={{ backgroundColor: "blue" }}>
+        <ScrollView invisible >
+          <div className="scrollable-content" style={{
+            display: "flex", flexDirection: "column",
+            alignItems: "flex-start",
+            backgroundColor: "red",
+          }}>
+            <div className="featured-container" style={{ backgroundColor: "beige" }}>
               <FeaturedTab />
             </div>
             <div className="sidebar-divider" />
-            <div className="space-container">
+            <div className="space-container" style={{ backgroundColor: "aqua" }}>
               <SpaceShortcut />
               <SidebarAvatar
                 tooltip="Pin spaces"

@@ -27,8 +27,10 @@ const SidebarAvatar = React.forwardRef(({
         onMouseUp={(e) => blurOnBubbling(e, '.sidebar-avatar')}
         onClick={onClick}
         onContextMenu={onContextMenu}
+        style={{ marginRight: "1rem", marginLeft: "0.725rem", marginBottom: "0.5rem" }}
       >
         {avatar}
+        <Text style={{ marginLeft: "1rem" }}>{tooltip}</Text>
         {notificationBadge}
       </button>
     </Tooltip>
