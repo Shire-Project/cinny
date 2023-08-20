@@ -20,6 +20,7 @@
   &__content-wrapper {
     @extend .cp-fx__item-one;
     @extend .cp-fx__column;
+    width: 100%;
   }
 
   &__state {
@@ -35,6 +36,7 @@
 .rooms__wrapper {
   @extend .cp-fx__item-one;
   position: relative;
+  width: 100%;
 }
 
 .rooms-container {
