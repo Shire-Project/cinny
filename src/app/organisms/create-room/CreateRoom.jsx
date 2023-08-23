@@ -32,6 +32,7 @@ import SpaceLockIC from '../../../../public/res/ic/outlined/space-lock.svg';
 import SpaceGlobeIC from '../../../../public/res/ic/outlined/space-globe.svg';
 import ChevronBottomIC from '../../../../public/res/ic/outlined/chevron-bottom.svg';
 import CrossIC from '../../../../public/res/ic/outlined/cross.svg';
+import { createSpaceShortcut } from '../../../client/action/accountData';
 
 function CreateRoomContent({ isSpace, parentId, onRequestClose }) {
   const [joinRule, setJoinRule] = useState(parentId ? 'restricted' : 'invite');
@@ -87,7 +88,7 @@ function CreateRoomContent({ isSpace, parentId, onRequestClose }) {
     const powerLevel = roleIndex === 1 ? 101 : undefined;
 
     try {
-      await roomActions.createRoom({
+      const res = await roomActions.createRoom({
         name,
         topic,
         joinRule,
@@ -97,6 +98,8 @@ function CreateRoomContent({ isSpace, parentId, onRequestClose }) {
         isSpace,
         parentId,
       });
+      if (isSpace)
+        createSpaceShortcut(res.room_id);
     } catch (e) {
       if (e.message === 'M_UNKNOWN: Invalid characters in room alias') {
         setCreatingError('ERROR: Invalid characters in address');
@@ -154,7 +157,7 @@ function CreateRoomContent({ isSpace, parentId, onRequestClose }) {
                 onClick={() => { closeMenu(); setJoinRule(rule); }}
                 disabled={!parentId && rule === 'restricted'}
               >
-                { joinRuleText[joinRules.indexOf(rule)] }
+                {joinRuleText[joinRules.indexOf(rule)]}
               </MenuItem>
             ))
           }

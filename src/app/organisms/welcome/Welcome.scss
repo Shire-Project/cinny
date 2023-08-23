@@ -8,6 +8,8 @@
   & > div {
     @extend .cp-fx__column--c-c;
     max-width: 600px;
+    display: flex;
+    align-items: center;
   }
   &__logo {
     width: 64px;
