@@ -10,7 +10,7 @@ import cons from '../../../client/state/cons';
 import colorMXID from '../../../util/colorMXID';
 import {
   selectTab, openShortcutSpaces, openInviteList,
-  openSearch, openSettings, openReusableContextMenu,
+  openSearch, openSettings, openReusableContextMenu, selectRoom,
 } from '../../../client/action/navigation';
 import { moveSpaceShortcut } from '../../../client/action/accountData';
 import { abbreviateNumber, getEventCords } from '../../../util/common';
@@ -33,6 +33,7 @@ import { useSelectedTab } from '../../hooks/useSelectedTab';
 import { useDeviceList } from '../../hooks/useDeviceList';
 
 import { tabText as settingTabText } from '../settings/Settings';
+import RoomTimeline from '../../../client/state/RoomTimeline';
 
 function useNotificationUpdate() {
   const { notifications } = initMatrix;
@@ -149,7 +150,7 @@ function FeaturedTab() {
       <SidebarAvatar
         tooltip="Home"
         active={selectedTab === cons.tabs.HOME}
-        onClick={() => selectTab(cons.tabs.HOME)}
+        onClick={() => { selectTab(cons.tabs.HOME); selectRoom(null); }}
         avatar={<Avatar iconSrc={HomeIC} size="normal" />}
         notificationBadge={homeNoti ? (
           <NotificationBadge
@@ -346,8 +347,11 @@ function SideBar() {
   return (
     <div className="sidebar">
       <div className="sidebar__scrollable">
-        <ScrollView invisible>
-          <div className="scrollable-content">
+        <ScrollView invisible >
+          <div className="scrollable-content" style={{
+            display: "flex", flexDirection: "column",
+            alignItems: "flex-start",
+          }}>
             <div className="featured-container">
               <FeaturedTab />
             </div>
@@ -371,7 +375,7 @@ function SideBar() {
             onClick={() => openSearch()}
             avatar={<Avatar iconSrc={SearchIC} size="normal" />}
           />
-          { totalInvites !== 0 && (
+          {totalInvites !== 0 && (
             <SidebarAvatar
               tooltip="Invites"
               onClick={() => openInviteList()}

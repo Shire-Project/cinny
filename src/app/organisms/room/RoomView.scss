@@ -27,6 +27,7 @@
   }
 
   &__content-wrapper {
+    width: 100%;
     @extend .cp-fx__item-one;
     @extend .cp-fx__column;
   }
@@ -37,6 +38,7 @@
   }
   
   &__sticky {
+    width: 100%;
     min-height: 85px;
     position: relative;
     background: var(--bg-surface);

@@ -4,7 +4,7 @@
 .sidebar {
   @extend .cp-fx__column;
 
-  width: var(--navigation-sidebar-width);
+  // width: fit-content;
   height: 100%;
   background-color: var(--bg-surface-extra-low);
   @include dir.side(border,
@@ -51,6 +51,7 @@
   & > .avatar-container {
     margin: calc(var(--sp-tight) / 2) 0;
   }
+  width: 100%;
 }
 .sidebar-divider {
   margin: auto;

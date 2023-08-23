@@ -6,7 +6,11 @@
 }
 
 .navigation__wrapper {
-  width: var(--navigation-width);
+  width: 25%;
+
+  @include screen.smallerThan(tabletBreakpoint) {
+    width: 40%;
+  }
   
   @include screen.smallerThan(mobileBreakpoint) {
     width: 100%;
