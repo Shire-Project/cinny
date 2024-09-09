@@ -45,7 +45,7 @@ function RoomEncryption({ roomId }) {
           <Toggle
             isActive={isEncrypted}
             onToggle={handleEncryptionEnable}
-            disabled={true}
+            disabled={isEncrypted || !canEnableEncryption}
           />
         )}
       />

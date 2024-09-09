@@ -30,13 +30,20 @@ function SecretStorageAccess({ onComplete }) {
   const processInput = async ({ key, phrase }) => {
     setProcess(true);
     try {
+      console.log("####### processing input");
       const { salt, iterations } = sSKeyInfo.passphrase || {};
+      console.log(salt);
+      console.log(iterations);
       const privateKey = key
-        ? mx.keyBackupKeyFromRecoveryKey(key)
-        : await deriveKey(phrase, salt, iterations);
+      ? mx.keyBackupKeyFromRecoveryKey(key)
+      : await deriveKey(phrase, salt, iterations);
+      console.log("#########");
+      console.log(privateKey);
       const isCorrect = await mx.checkSecretStorageKey(privateKey, sSKeyInfo);
-
-      if (!mountStore.getItem()) return;
+      console.log("######### correct");
+      console.log(isCorrect);
+      console.log(mountStore.getItem());
+      // if (!mountStore.getItem()) return;
       if (!isCorrect) {
         setError(`Incorrect Security ${key ? 'Key' : 'Phrase'}`);
         setProcess(false);
@@ -48,6 +55,8 @@ function SecretStorageAccess({ onComplete }) {
         phrase,
         privateKey,
       });
+      console.log("######### correct");
+      console.log(isCorrect);
     } catch (e) {
       if (!mountStore.getItem()) return;
       setError(`Incorrect Security ${key ? 'Key' : 'Phrase'}`);

@@ -77,6 +77,7 @@ function DeviceManage() {
   }, [deviceList]);
 
   const addToProcessing = (device) => {
+    console.log("### PROCESSING LIST");
     const old = [...processing];
     old.push(device.device_id);
     setProcessing(old);
@@ -130,8 +131,12 @@ function DeviceManage() {
   };
 
   const verifyWithKey = async (device) => {
+    console.log("######## TEST THE KEY VERIFICATION");
     const keyData = await accessSecretStorage('Session verification');
+    console.log("######## TEST THE KEY VERIFICATION");
     if (!keyData) return;
+    console.log(keyData);
+    console.log(keyData);
     addToProcessing(device);
     await mx.checkOwnCrossSigningTrust();
   };
@@ -143,7 +148,9 @@ function DeviceManage() {
 
   const verify = (deviceId, isCurrentDevice) => {
     if (isCurrentDevice) {
+      console.log("######## DEVICE ID ####### ",deviceId);
       verifyWithKey(deviceId);
+      console.log("######## DEVICE ID ####### ",deviceId);
       return;
     }
     verifyWithEmojis(deviceId);

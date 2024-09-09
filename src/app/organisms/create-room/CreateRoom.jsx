@@ -36,7 +36,7 @@ import { createSpaceShortcut } from '../../../client/action/accountData';
 
 function CreateRoomContent({ isSpace, parentId, onRequestClose }) {
   const [joinRule, setJoinRule] = useState(parentId ? 'restricted' : 'invite');
-  const [isEncrypted, setIsEncrypted] = useState(false);
+  const [isEncrypted, setIsEncrypted] = useState(true);
   const [isCreatingRoom, setIsCreatingRoom] = useState(false);
   const [creatingError, setCreatingError] = useState(null);
 
@@ -93,7 +93,7 @@ function CreateRoomContent({ isSpace, parentId, onRequestClose }) {
         topic,
         joinRule,
         alias: roomAlias,
-        isEncrypted: false,
+        isEncrypted: (isSpace || joinRule === 'public') ? false : isEncrypted,
         powerLevel,
         isSpace,
         parentId,
@@ -199,7 +199,7 @@ function CreateRoomContent({ isSpace, parentId, onRequestClose }) {
         {!isSpace && joinRule !== 'public' && (
           <SettingTile
             title="Enable end-to-end encryption"
-            options={<Toggle isActive={false} onToggle={setIsEncrypted} />}
+            options={<Toggle isActive={isEncrypted} onToggle={setIsEncrypted} />}
             content={<Text variant="b3">You can’t disable this later. Bridges & most bots won’t work yet.</Text>}
           />
         )}

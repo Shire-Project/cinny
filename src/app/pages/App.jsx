@@ -8,8 +8,9 @@ import Client from '../templates/client/Client';
 import { CrossSigningEventHandler, MessagesBackupEventHandler } from '../../shire/EventsChannel';
 
 function App() {
-  // CrossSigningEventHandler();
-  // MessagesBackupEventHandler();
+  // TODO turn back cross-signing encryption based on shire settings
+  CrossSigningEventHandler();
+  MessagesBackupEventHandler();
   return isAuthenticated() ? <Client /> : <Auth />;
 }
 

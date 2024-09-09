@@ -384,7 +384,7 @@ function SideBar() {
             />
           )}
           {/* TODO hide cross signing alert */}
-          {/* <CrossSigninAlert /> */}
+          <CrossSigninAlert />
           <ProfileAvatarMenu />
         </div>
       </div>

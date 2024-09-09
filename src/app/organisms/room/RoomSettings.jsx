@@ -71,11 +71,11 @@ const tabItems = [{
   disabled: false,
 }, 
 // TODO security tab in rooms
-// {
-//   iconSrc: LockIC,
-//   text: tabText.SECURITY,
-//   disabled: false,
-// }
+{
+  iconSrc: LockIC,
+  text: tabText.SECURITY,
+  disabled: false,
+}
 ];
 
 function GeneralSettings({ roomId }) {
